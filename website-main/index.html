@@ -1,0 +1,664 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>TEMOTTS</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-30955754-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+		
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">TEMOTTS : Text-aware Emotional Text-to-Speech with no emotion labels</h1>
+        <p class="header"></p>
+        <ul>
+          <!-- <li class="download"><a class="buttons" href="https://github.com/harrisonford/awesome/zipballmus/master">Download ZIP</a></li> -->
+          <!-- <li class="download"><a class="buttons" href="https://github.com/harrisonford/awesome/tarball/master">Download TAR</a></li> -->
+          <!-- <li><a class="buttons github" href="http://github.com/harrisonford/awesome">View On GitHub</a></li> -->
+        </ul>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Kodhandarama">Shreeram Chandra</a></p>
+      </header>
+      <section>
+<h2>TEMOTTS: Text-aware Emotional Text-to-Speech with no labels</h2>
+<p><font size="+1">Authors : Shreeram Suresh Chandra, Zongyang Du, Berrak Sisman</font></p>
+<p style="color:red;"><a href="https://labs.utdallas.edu/sml/">Speech and Machine learning lab - The University of Texas at Dallas</a></p>
+<p>Submitted to Speaker Odyssey 2024. Codes will released after acceptance.</p>
+<h2>Abstract</h2>
+Many frameworks for emotional Text-to-Speech (E-TTS) rely on human-annotated emotion labels that are often inaccurate and difficult to obtain. 
+Learning emotional prosody implicitly presents challenges due to the subjective nature of emotions and the hierarchical structure of speech. In this study, we propose a novel approach that leverages text awareness to acquire emotional styles without the need for explicit emotion labels. We present TEMOTTS, a two-stage framework for E-TTS that is trained without emotion labels and is capable of inference without auxiliary inputs. Our proposed method performs knowledge transfer between the linguistic space learned by BERT and the emotional style space constructed by global style tokens. Our experimental results demonstrate the effectiveness of our proposed framework in comparison to baselines, showcasing improvements in emotional accuracy, naturalness, and intelligibility. This is one of the first studies to leverage the emotional correlation between spoken content and expressive delivery for emotional TTS.
+
+<h2> Model Architecture</h2>
+          <br />
+                    <img src="framework_v10.jpg"  width="950" height="310" / > <p>
+                      <figcaption style="terx-align:center;"></font><font size=3> 
+                        Fig.1 Proposed TEMOTTS framework with stage I and stage II. Red modules contain trainable weights and purple modules contain fixed weights; CE loss represents Categorical Cross Entropy loss.
+                      </figcaption><br>
+
+                   
+                  <div class="big-screen">
+<!-- <h3> Baselines and Datasets </h3>
+<p>Baselines : Fastspeech2 </p> -->
+
+<h3>Let's test the voice quality!</h3>
+<table>
+  <tbody><tr>
+    <th> </th><th>FastSpeech2 [1]</th><th>VITS [2]</th><th>TEMOTTS</th>
+  </tr>
+  <tr>
+    
+      <td>
+        1.
+      </td>
+      <td>
+      <audio controls>
+        <source src="FS2_MOS/Bikes_are_fun_to_ride__gen.wav" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+    <td>
+      <audio controls>
+        <source src="VITS_mos/Bikes_are_fun_to_ride_.wav" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+    <td>
+      <audio controls>
+        <source src="TEMOTTS_MOS/Bikes_are_fun_to_ride__gen.wav" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+  </tr>
+  <tr>
+    
+    <td>
+      2.
+    </td>
+    <td>
+    <audio controls>
+      <source src="FS2_MOS/Dreams_can_come_true__gen.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+  <td>
+    <audio controls>
+      <source src="VITS_mos/Dreams_can_come_true_.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+  <td>
+    <audio controls>
+      <source src="TEMOTTS_MOS/Dreams_can_come_true__gen.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+</tr>
+<tr>
+    
+  <td>
+    3.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_MOS/Friends_make_life_more_fun__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_mos/Friends_make_life_more_fun_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_MOS/Friends_make_life_more_fun__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    4.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_MOS/I_admired_the_artwork__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_mos/I_admired_the_artwork_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_MOS/I_admired_the_artwork__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    5.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_MOS/I_prefer_tea_over_coffee__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_mos/I_prefer_tea_over_coffee_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_MOS/I_prefer_tea_over_coffee__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    6.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_MOS/She_cooked_a_gourmet_dinner__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_mos/She_cooked_a_gourmet_dinner_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_MOS/She_cooked_a_gourmet_dinner__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    7.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_MOS/Skating_is_fun_on_ice__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_mos/Skating_is_fun_on_ice_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_MOS/Skating_is_fun_on_ice__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+  
+</tbody></table>
+
+<h3>Emotional Text-awareness - Notice how closely the speech is able to capture the emotions in the text </h3>
+<table>
+  <tbody><tr>
+    <th> </th><th>Text</th><th>FastSpeech2 [1]</th><th>VITS [2]</th><th>TEMOTTS</th>
+  </tr>
+  <tr>
+    
+      <td>
+        1.
+      </td>
+      <td>
+        Blowing out birthday candles makes me feel special!
+      </td>
+      <td>
+      <audio controls>
+        <source src="FS2_ETA/Blowing_out_birthday_candles_makes_me_feel_special__gen.wav" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+    <td>
+      <audio controls>
+        <source src="VITS_ETA/Blowing_out_birthday_candles_makes_me_feel_special_.wav" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+    <td>
+      <audio controls>
+        <source src="TEMOTTS_ETA/Blowing_out_birthday_candles_makes_me_feel_special__gen.wav" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+  </tr>
+  <tr>
+    
+    <td>
+      2.
+    </td>
+    <td>
+      Her heart felt heavy with sorrow.
+    </td>
+    <td>
+    <audio controls>
+      <source src="FS2_ETA/Her_heart_felt_heavy_with_sorrow__gen.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+  <td>
+    <audio controls>
+      <source src="VITS_ETA/Her_heart_felt_heavy_with_sorrow.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+  <td>
+    <audio controls>
+      <source src="TEMOTTS_ETA/Her_heart_felt_heavy_with_sorrow__gen.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+</tr>
+<tr>
+    
+  <td>
+    3.
+  </td>
+  <td>
+    I am feeling sad.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/I_am_feeling_sad__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/I_am_feeling_sad_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/I_am_feeling_sad__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    4.
+  </td>
+  <td>
+    I feel joy when I see colourful balloons.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/I_feel_joy_when_I_see_colorful_balloons__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/I_feel_joy_when_I_see_colourful_balloons_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/I_feel_joy_when_I_see_colorful_balloons__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    5.
+  </td>
+  <td>
+    I feel like a broken toy discarded and forgotten.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/I_feel_like_a_broken_toy__discarded_and_forgotten__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/I_feel_like_a_broken_toy_discarded_and_forgotten_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/I_feel_like_a_broken_toy__discarded_and_forgotten__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    6.
+  </td>
+  <td>
+     I'm about to explode with anger!
+    </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/I'm_about_to_explode_with_anger__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/I_am_about_to_explode_with_anger_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/I'm_about_to_explode_with_anger__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    7.
+  </td>
+  <td>
+     I'm so angry I can't even breathe.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/I'm_so_angry_I_can't_even_breathe__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/Im_so_angry_I_cant_even_breathe.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/I'm_so_angry_I_can't_even_breathe__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+
+<tr>
+    
+  <td>
+    8.
+  </td>
+  <td>
+     I'm so angry I could spit fire.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/I'm_so_angry_I_could_spit_fire__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/I_am_so_angry_I_could_spit_fire_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/I'm_so_angry_I_could_spit_fire__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    9.
+  </td>
+  <td>
+     Playing with toys brings me so much happiness!
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/Playing_with_toys_brings_me_so_much_happiness__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/Playing_with_toys_brings_me_so_much_happiness_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/Playing_with_toys_brings_me_so_much_happiness__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    10.
+  </td>
+  <td>
+     She felt like a part of her was missing.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/She_felt_like_a_part_of_her_was_missing__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/She_felt_like_a_part_of_her_was_missing_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/She_felt_like_a_part_of_her_was_missing__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    11.
+  </td>
+  <td>
+     Singing and dancing make me feel so good.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/Singing_and_dancing_make_me_feel_so_good__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/Singing_and_dancing_make_me_feel_so_good_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/Singing_and_dancing_make_me_feel_so_good__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    12.
+  </td>
+  <td>
+     Smiling at others fills me with happiness.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/Smiling_at_others_fills_me_with_happiness__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/Smiling_at_others_fills_me_with_happiness_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/Smiling_at_others_fills_me_with_happiness__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    13.
+  </td>
+  <td>
+     Tears welled up in her eyes.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/Tears_welled_up_in_her_eyes__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/Tears_welled_up_in_her_eyes_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/Tears_welled_up_in_her_eyes__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    14.
+  </td>
+  <td>
+     This is driving me crazy.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/This_is_driving_me_crazy__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/This_is_driving_me_crazy.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/This_is_driving_me_crazy__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+<tr>
+    
+  <td>
+    15.
+  </td>
+  <td>
+     Watching a funny movie makes me laugh out loud.
+  </td>
+  <td>
+  <audio controls>
+    <source src="FS2_ETA/Watching_a_funny_movie_makes_me_laugh_out_loud__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="VITS_ETA/Watching_a_funny_movie_makes_me_laugh_out_loud_.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="TEMOTTS_ETA/Watching_a_funny_movie_makes_me_laugh_out_loud__gen.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+  
+</tbody></table>
+
+<h3> References </h3>
+<p>[1]  Yi Ren, Chenxu Hu, Xu Tan, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu, “Fastspeech 2: Fast and high-quality end-to-end text to speech,” in International Conference on Learning Representations, 2021.
+<p>[2]  Jaehyeon Kim, Jungil Kong, and Juhee Son, “Conditional variational autoencoder with adversarial learning for end-to-end text-to-speech,” in International Conference on Machine Learning. PMLR, 2021, pp. 5530–5540.</p>  
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/broccolini/dinky">Dinky theme</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
