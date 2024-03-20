@@ -32,7 +32,7 @@
     <div class="wrapper">
       <header>
         <h1 class="header">SelectTTS: Synthesizing anyone's voice via unit-based frame selection of self-supervised features</h1>
-	       <h1 class="header">WEBSITE BUILD IN PROGRESS. ETA : 20th march 2024</h1>
+	       <!-- <h1 class="header">WEBSITE BUILD IN PROGRESS. ETA : 20th march 2024</h1> -->
         <p class="header"></p>
         <ul>
           <!-- <li class="download"><a class="buttons" href="https://github.com/harrisonford/awesome/zipballmus/master">Download ZIP</a></li> -->
@@ -51,9 +51,9 @@ Synthesizing the voices of unseen speakers is a persisting challenge in multispe
     We design a simple alternative to this. We propose SelectTTS, a novel method to select the appropriate frames from the target speaker and decode using frame-level self-supervised learning (SSL) features. We show that this approach can effectively capture speaker characteristics for unseen speakers, and achieves comparable results to other multispeaker-TTS frameworks in both objective and subjective metrics. With SelectTTS, we show that frame selection from the target speaker's speech is a direct way to achieve generalization in unseen speakers
 <h2> Model Architecture</h2>
           <br />
-                    <img src="SelectTTS_v2.jpg"  width="950" height="310" / > <p>
+                    <img src="SelectTTS_v2.jpg"  width="950" height="410" / > <p>
                       <figcaption style="terx-align:center;"></font><font size=3> 
-                        Select-TTS
+                        Proposed SelectTTS framework with the frame-selection method. In the frame selection, frames z1, z2, z3, z4 are chosen through subsequence matching and frames z7, z9, z6, z10 are chosen via inverse k-means sampling
                       </figcaption><br>
 
                    
