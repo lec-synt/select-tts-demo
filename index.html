@@ -61,7 +61,7 @@ Synthesizing the voices of unseen speakers is a persisting challenge in multispe
 <!-- <h3> Baselines and Datasets </h3>
 <p>Baselines : Fastspeech2 </p> -->
 
-<h3>Let's test the voice quality and naturalness!</h3>
+<h3>Let's test the speaker similarity (unseen speakers)</h3>
 <table>
   <tbody><tr>
    <th> Text </th><th>Ground truth</th><th>MS-DU TTS</th><th>YourTTS [1]</th><th>Select-TTS</th>
@@ -283,42 +283,207 @@ Synthesizing the voices of unseen speakers is a persisting challenge in multispe
 </td>
 </tr>
 </tbody></table>
-<h3>Let's test the voice quality and naturalness!</h3>
+
+
+
+
+<h3>How much reference speech do we need?</h3>
 <table>
   <tbody><tr>
-   <th> Text </th><th>Ground truth</th><th>MS-DU TTS</th><th>YourTTS [1]</th><th>Select-TTS</th>
+   <th> Text </th><th>Ground truth</th><th> /<10 seconds</th><th>30 seconds</th><th>1 minute</th><th>5 minutes</th><th>10 minutes</th>
   </tr>
   <tr>
     
       <td>
-        You must tell me the story
+        And when will that be?
       </td>
       <td>
       <audio controls>
-        <source src="multi_speaker/Spk_5029/samples_spk_5029GROUND_TRUTH/5029_30593_000015_000001.wav" type="audio/wav" />
+        <source src="expt2/0.1/gen_5717_100145_000031_000000.wav" type="audio/wav" />
         Your browser does not support the audio element.
       </audio>
     </td>
     <td>
       <audio controls>
-        <source src="msdu_samples/select_tts_baseline/5029/5029_30593_000015_000001.wav" type="audio/wav" />
+        <source src="expt2/0.5/gen_5717_100145_000031_000000.wav" type="audio/wav" />
         Your browser does not support the audio element.
       </audio>
     </td>
     <td>
       <audio controls>
-        <source src="multi_speaker/Spk_5029/yourtts_samples_spk_5029_numtok_500_T2U_Libri_num_mins_10_inf_subsequence_numsent_25_g_02595000/5029_30593_000015_000001_yourTTS.wav" type="audio/wav" />
+        <source src="expt2/1/gen_5717_100145_000031_000000.wav" type="audio/wav" />
         Your browser does not support the audio element.
       </audio>
     </td>
     <td>
       <audio controls>
-        <source src="multi_speaker/Spk_5029/samples_spk_5029_numtok_500_T2U_Libri_num_mins_10_inf_subsequence_numsent_25_g_02595000/gen_5029_30593_000015_000001.wav" type="audio/wav" />
+        <source src="expt2/5/gen_5717_100145_000031_000000.wav" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+
+    <td>
+      <audio controls>
+        <source src="expt2/10/gen_5717_100145_000031_000000.wav" type="audio/wav" />
         Your browser does not support the audio element.
       </audio>
     </td>
   </tr>
+
+  <tr>
+    
+    <td>
+      But we knew they would tackle it by themselves if we backed out
+    </td>
+    <td>
+    <audio controls>
+      <source src="expt2/0.1/gen_5126_27504_000017_000006.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+  <td>
+    <audio controls>
+      <source src="expt2/0.5/gen_5126_27504_000017_000006.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+  <td>
+    <audio controls>
+      <source src="expt2/1/gen_5126_27504_000017_000006.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+  <td>
+    <audio controls>
+      <source src="expt2/5/gen_5126_27504_000017_000006.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+
+  <td>
+    <audio controls>
+      <source src="expt2/10/gen_5126_27504_000017_000006.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </td>
+</tr>
+
+
+
+<tr>
+    
+  <td>
+    You have excited my curiosity
+  </td>
+  <td>
+  <audio controls>
+    <source src="expt2/0.1/gen_5029_30593_000015_000000.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/0.5/gen_5029_30593_000015_000000.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/1/gen_5029_30593_000015_000000.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/5/gen_5029_30593_000015_000000.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+
+<td>
+  <audio controls>
+    <source src="expt2/10/gen_5029_30593_000015_000000.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
+
+<tr>
+    
+  <td>
+    Note women who have captivated men
+  </td>
+  <td>
+  <audio controls>
+    <source src="expt2/0.1/gen_119_121722_000000_000001.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/0.5/gen_119_121722_000000_000001.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/1/gen_119_121722_000000_000001.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/5/gen_119_121722_000000_000001.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+
+<td>
+  <audio controls>
+    <source src="expt2/10/gen_119_121722_000000_000001.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
 </tbody></table>
+
+<tr>
+    
+  <td>
+    The jars for this purpose should not have been previously used for pickles
+  </td>
+  <td>
+  <audio controls>
+    <source src="expt2/0.1/gen_93_123172_000019_000002.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/0.5/gen_93_123172_000019_000002.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/1/gen_93_123172_000019_000002.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+<td>
+  <audio controls>
+    <source src="expt2/5/gen_93_123172_000019_000002.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+
+<td>
+  <audio controls>
+    <source src="expt2/10/gen_93_123172_000019_000002.wav" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</td>
+</tr>
 <!-- <tr>
     
   <td>
